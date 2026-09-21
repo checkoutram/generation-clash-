@@ -1,0 +1,107 @@
+@import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=Manrope:wght@400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --ink: #14092e;
+  --ground: #1b0e44;
+  --purple: #6a2be9;
+  --lime: #c6f15c;
+  --pink: #f0a2fd;
+  --peach: #feb591;
+  --yellow: #ffd542;
+  --cyan: #76f4fc;
+}
+
+html, body, #root { height: 100%; }
+
+body {
+  font-family: 'Manrope', system-ui, sans-serif;
+  background: var(--ground);
+  color: #fff;
+  -webkit-tap-highlight-color: transparent;
+  overscroll-behavior: none;
+}
+
+.font-display {
+  font-family: 'Bricolage Grotesque', 'Manrope', system-ui, sans-serif;
+}
+
+/* ---------- hard-shadow festive system ---------- */
+.hard { box-shadow: 6px 8px 0 0 #000; }
+.hard-sm { box-shadow: 4px 5px 0 0 #000; }
+.push-btn {
+  transform: translate(-4px, -4px);
+  box-shadow: 8px 8px 0 0 #000;
+  transition: transform .12s ease, box-shadow .12s ease;
+}
+.push-btn:active {
+  transform: translate(0, 0);
+  box-shadow: 0 0 0 0 #000;
+}
+
+/* ---------- motion ---------- */
+@keyframes popIn {
+  0% { opacity: 0; transform: scale(.7) translateY(24px) rotate(-2deg); }
+  100% { opacity: 1; transform: scale(1) translateY(0) rotate(0deg); }
+}
+.pop-in { animation: popIn .55s cubic-bezier(0.34, 1.56, 0.64, 1) both; }
+
+@keyframes floatY {
+  0%, 100% { transform: translateY(0) rotate(var(--r, 0deg)); }
+  50% { transform: translateY(-14px) rotate(var(--r, 0deg)); }
+}
+.float-y { animation: floatY 4s ease-in-out infinite; }
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+.marquee-track { animation: marquee 18s linear infinite; }
+
+@keyframes gradientShift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+.gradient-text {
+  background: linear-gradient(90deg, var(--cyan), var(--pink), var(--yellow), var(--pink), var(--cyan));
+  background-size: 300% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: gradientShift 6s linear infinite;
+}
+
+@keyframes blobDrift {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(30px, -40px) scale(1.15); }
+  66% { transform: translate(-25px, 25px) scale(.9); }
+}
+.blob { animation: blobDrift 12s ease-in-out infinite; filter: blur(70px); }
+
+@keyframes shakeX {
+  0%, 100% { transform: translateX(0); }
+  20%, 60% { transform: translateX(-6px); }
+  40%, 80% { transform: translateX(6px); }
+}
+.shake { animation: shakeX .4s ease; }
+
+@keyframes barGrow { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+
+@keyframes spinDice { 0% { transform: rotate(0) scale(1); } 50% { transform: rotate(180deg) scale(1.25); } 100% { transform: rotate(360deg) scale(1); } }
+.spin-dice { animation: spinDice 1s cubic-bezier(0.34, 1.56, 0.64, 1) infinite; }
+
+@keyframes revealDrama {
+  0% { opacity: 0; transform: scale(.4) rotate(-6deg); }
+  60% { transform: scale(1.08) rotate(2deg); }
+  100% { opacity: 1; transform: scale(1) rotate(0); }
+}
+.reveal-drama { animation: revealDrama .8s cubic-bezier(0.34, 1.56, 0.64, 1) both; }
+
+@media (prefers-reduced-motion: reduce) {
+  .float-y, .marquee-track, .gradient-text, .blob, .spin-dice { animation: none !important; }
+  .pop-in, .reveal-drama { animation-duration: .01s !important; }
+  * { transition-duration: .01s !important; }
+}
