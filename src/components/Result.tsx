@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { GENERATIONS, type ScoreBreakdown, type Generation } from '../config'
+import { trackEvent, shareUrl } from '../analytics'
 import Confetti from './Confetti'
 
 export const GEN_COLORS: Record<string, string> = {
@@ -70,16 +71,24 @@ export default function Result({ birthYear, official, vibe, breakdown, message, 
   const [copied, setCopied] = useState(false)
   const vibePct = breakdown.find(b => b.gen === vibe.id)?.pct ?? 0
   const vibeCount = useCounter(vibePct, revealed, 1400)
-  const url = typeof window !== 'undefined' ? window.location.href.split('#')[0] : ''
+  const url = shareUrl()
 
   useEffect(() => {
+    trackEvent('result_view', { generation: official.name, vibe: vibe.name })
     const t = setTimeout(() => setRevealed(true), 500)
     return () => clearTimeout(t)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const shareText = `😂 I just took the Generation Clash India quiz!\n\nI'm a ${official.name} by birth but my Generation Vibe is ${vibe.name} (${vibePct}% ${vibe.name})!\n\n${message}\n\nWhat's YOUR Generation Vibe?\n👉 Take the 10-question challenge: ${url}`
 
   const shareWhatsApp = () => {
+    trackEvent('whatsapp_share', {
+      generation: official.name,
+      vibe: vibe.name,
+      score: vibePct,
+      share_location: 'result_page',
+    })
     window.open(`https://wa.me/?text=${encodeURIComponent(shareText)}`, '_blank')
   }
   const shareNative = async () => {
@@ -88,6 +97,7 @@ export default function Result({ birthYear, official, vibe, breakdown, message, 
     } else shareWhatsApp()
   }
   const copyLink = async () => {
+    trackEvent('copy_link', { generation: official.name, vibe: vibe.name })
     try { await navigator.clipboard.writeText(url) } catch {
       const ta = document.createElement('textarea'); ta.value = url; document.body.appendChild(ta); ta.select()
       document.execCommand('copy'); document.body.removeChild(ta)

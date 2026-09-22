@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import type { Question } from '../config'
 import { QUESTIONS_PER_GAME } from '../config'
+import { trackEvent } from '../analytics'
 import FloatingBg from './FloatingBg'
 
 const OPTION_COLORS = ['bg-white', 'bg-white', 'bg-white', 'bg-white']
@@ -26,6 +27,11 @@ export default function Quiz({
   const empty = '░'.repeat(10 - Math.round((index / total) * 10))
 
   const advance = (pick: number) => {
+    trackEvent('question_answered', {
+      question_number: index + 1,
+      question_id: q.id,
+      answer_id: `${q.id}_${LETTERS[pick]}`,
+    })
     const newPicks = [...picks, pick]
     setLeaving(true)
     setTimeout(() => {

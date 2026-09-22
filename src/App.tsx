@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import Landing from './components/Landing'
 import BirthYear from './components/BirthYear'
 import Quiz from './components/Quiz'
@@ -8,6 +8,7 @@ import {
   QUESTION_POOL, QUESTIONS_PER_GAME, generationForYear, computeResult,
   pickResultMessage, GENERATIONS, type Question, type ScoreBreakdown, type Generation,
 } from './config'
+import { initAnalytics, trackEvent, deviceType, trafficSource } from './analytics'
 
 const GENERATION_LOOKUP = Object.fromEntries(GENERATIONS.map(g => [g.id, g])) as Record<string, Generation>
 
@@ -27,10 +28,22 @@ export default function App() {
   const [birthYear, setBirthYear] = useState<number | null>(null)
   const [questions, setQuestions] = useState<Question[]>([])
   const [picks, setPicks] = useState<number[]>([])
+  const startTime = useRef<number>(0)
+
+  useEffect(() => {
+    initAnalytics()
+    trackEvent('page_view', { page: 'landing', device: deviceType(), ...trafficSource() })
+  }, [])
 
   const startQuiz = (year: number) => {
     setBirthYear(year)
     setQuestions(pickRandomQuestions())
+    startTime.current = Date.now()
+    trackEvent('quiz_start', {
+      birth_year: year,
+      generation: generationForYear(year).name,
+      ...trafficSource(),
+    })
     setScreen('quiz')
     window.scrollTo(0, 0)
   }
@@ -44,7 +57,29 @@ export default function App() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [screen])
 
+  const handleQuizDone = (p: number[]) => {
+    setPicks(p)
+    if (birthYear !== null) {
+      const official = generationForYear(birthYear)
+      const { breakdown } = computeResult(questions, p)
+      const vibe = GENERATION_LOOKUP[breakdown[0].gen]
+      const pctOf = (id: string) => breakdown.find(b => b.gen === id)?.pct ?? 0
+      trackEvent('quiz_complete', {
+        generation: official.name,
+        vibe: vibe.name,
+        completion_seconds: Math.round((Date.now() - startTime.current) / 1000),
+        millennial_score: pctOf('millennial'),
+        gen_z_score: pctOf('genz'),
+        gen_alpha_score: pctOf('genalpha'),
+        gen_beta_score: pctOf('genbeta'),
+      })
+    }
+    setScreen('calculating')
+    window.scrollTo(0, 0)
+  }
+
   const playAgain = () => {
+    trackEvent('play_again', { device: deviceType() })
     setBirthYear(null)
     setPicks([])
     setQuestions([])
@@ -57,7 +92,7 @@ export default function App() {
       {screen === 'landing' && <Landing onStart={() => setScreen('birthyear')} />}
       {screen === 'birthyear' && <BirthYear onSubmit={startQuiz} />}
       {screen === 'quiz' && (
-        <Quiz questions={questions} onDone={(p) => { setPicks(p); setScreen('calculating'); window.scrollTo(0, 0) }} />
+        <Quiz questions={questions} onDone={handleQuizDone} />
       )}
       {screen === 'calculating' && <Calculating onDone={() => { setScreen('result'); window.scrollTo(0, 0) }} />}
       {screen === 'result' && result && birthYear !== null && (
