@@ -23,9 +23,19 @@ npm run build   # outputs to dist/
 
 ## Deploy (GitHub Pages)
 
-This repo includes a GitHub Actions workflow (`.github/workflows/deploy.yml`) that builds and deploys on every push to `main`.
+The site is served from the `gh-pages` branch (pre-built static files).
 
-One-time setup in your repo: **Settings → Pages → Source: GitHub Actions**.
+To publish updates:
+
+```bash
+npm install && npm run build
+git checkout gh-pages
+git rm -rf . && cp -r dist/* . && touch .nojekyll
+git add -A && git commit -m "Update build" && git push origin gh-pages
+git checkout main
+```
+
+Live at: https://checkoutram.github.io/generation-clash-/
 
 ## Customize the game
 
