@@ -6,7 +6,7 @@
 // ============================================================
 
 export const ANALYTICS_PROVIDER: 'ga4' | 'plausible' | 'umami' | 'none' = 'ga4'
-export const ANALYTICS_MEASUREMENT_ID = 'G-XXXXXXXXXX' // ← paste your GA4 ID here
+export const ANALYTICS_MEASUREMENT_ID = 'G-8JPN7C8FT5'
 
 // Optional for Plausible/Umami self-hosted setups:
 export const ANALYTICS_SCRIPT_URL = '' // e.g. 'https://plausible.io/js/script.js'
