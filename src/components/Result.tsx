@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { GENERATIONS, type ScoreBreakdown, type Generation } from '../config'
+import { GENERATIONS, type ScoreBreakdown, type Generation, type Question } from '../config'
 import { trackEvent, shareUrl } from '../analytics'
 import Confetti from './Confetti'
 
@@ -38,12 +38,12 @@ function GenBar({ gen, pct, start, delay }: { gen: Generation; pct: number; star
     return () => clearTimeout(t)
   }, [start, delay])
   return (
-    <div className="mb-3">
+    <div className="mb-2">
       <div className="mb-1 flex items-center justify-between font-display text-sm font-extrabold">
         <span>{gen.emoji} {gen.name}</span>
         <span style={{ color: GEN_COLORS[gen.id] }}>{count}%</span>
       </div>
-      <div className="h-4 overflow-hidden rounded-full border-2 border-black bg-black/40">
+      <div className="h-3.5 overflow-hidden rounded-full border-2 border-black bg-black/40">
         <div
           className="h-full rounded-full"
           style={{
@@ -63,10 +63,13 @@ interface Props {
   vibe: Generation
   breakdown: ScoreBreakdown[]
   message: string
+  questions: Question[]
+  picks: number[]
   onPlayAgain: () => void
+
 }
 
-export default function Result({ birthYear, official, vibe, breakdown, message, onPlayAgain }: Props) {
+export default function Result({ birthYear, official, vibe, breakdown, message, questions, picks, onPlayAgain }: Props) {
   const [step, setStep] = useState<'result' | 'share'>('result')
   const [revealed, setRevealed] = useState(false)
   const [copied, setCopied] = useState(false)
@@ -135,6 +138,25 @@ export default function Result({ birthYear, official, vibe, breakdown, message, 
                   {vibePct}% {vibe.name.toUpperCase()}
                 </p>
                 <p className="mt-3 text-sm font-semibold text-white/85">“{message}”</p>
+
+                {/* Q&A recap inside the card */}
+                <div className="mt-4 rounded-2xl border-2 border-white/15 bg-black/30 p-3 text-left">
+                  <p className="mb-2 text-center font-display text-[10px] font-extrabold tracking-[0.25em] text-white/50">
+                    MY QUESTIONS & ANSWERS
+                  </p>
+                  {questions.map((q, i) => (
+                    <div key={q.id} className="flex items-start gap-1.5 border-b border-white/10 py-1.5 last:border-0">
+                      <span className="shrink-0 text-sm leading-tight">{q.emoji}</span>
+                      <div className="min-w-0">
+                        <p className="truncate text-[10px] font-bold tracking-wide text-white/45">{q.category}</p>
+                        <p className="truncate text-[11px] font-semibold text-white/90">
+                          <span className="text-[var(--lime)]">✓</span> {q.answers[picks[i]]?.text ?? ''}
+                        </p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
                 <div className="mx-auto mt-4 w-fit rounded-full border-2 border-black bg-[var(--yellow)] px-4 py-1.5 font-display text-xs font-extrabold text-black">
                   CAN YOU BEAT MY GENERATION SCORE? 👊
                 </div>
@@ -186,7 +208,7 @@ export default function Result({ birthYear, official, vibe, breakdown, message, 
   }
 
   return (
-    <div className="relative flex min-h-full flex-col items-center px-5 pb-10 pt-8">
+    <div className="relative flex min-h-full flex-col items-center px-5 pb-6 pt-5">
       <Confetti fire={revealed} />
       <div className="relative z-10 w-full max-w-md">
 
@@ -197,34 +219,34 @@ export default function Result({ birthYear, official, vibe, breakdown, message, 
           Born in <span className="text-[var(--yellow)]">{birthYear}</span>
         </p>
 
-        <div className="pop-in mt-5 text-center" style={{ animationDelay: '.2s' }}>
+        <div className="pop-in mt-3 text-center" style={{ animationDelay: '.2s' }}>
           <span className="inline-block rotate-[-1deg] rounded-full border-2 border-black bg-white px-4 py-1.5 font-display text-sm font-extrabold text-black hard-sm">
             🧬 Officially: {official.name.toUpperCase()}
           </span>
         </div>
 
-        <p className="pop-in mt-6 text-center font-display text-sm font-bold tracking-widest text-white/60" style={{ animationDelay: '.3s' }}>
+        <p className="pop-in mt-3 text-center font-display text-xs font-bold tracking-widest text-white/60" style={{ animationDelay: '.3s' }}>
           BUT…
         </p>
 
         {revealed && (
-          <div className="reveal-drama mt-3 text-center">
-            <div className="text-6xl">{vibe.emoji}</div>
-            <h1 className="gradient-text mt-2 font-display text-[clamp(2.2rem,10vw,3.5rem)] font-extrabold leading-none" style={{ filter: 'drop-shadow(4px 4px 0 #000)' }}>
+          <div className="reveal-drama mt-2 text-center">
+            <div className="text-5xl">{vibe.emoji}</div>
+            <h1 className="gradient-text mt-1 font-display text-[clamp(2rem,9vw,3rem)] font-extrabold leading-none" style={{ filter: 'drop-shadow(4px 4px 0 #000)' }}>
               {vibe.name.toUpperCase()}
             </h1>
             <p className="mt-1 font-display text-sm font-extrabold tracking-widest text-white/70">
               IS YOUR GENERATION VIBE
             </p>
-            <p className="mt-3 font-display text-5xl font-extrabold" style={{ color: GEN_COLORS[vibe.id], textShadow: '3px 3px 0 #000' }}>
+            <p className="mt-1 font-display text-4xl font-extrabold" style={{ color: GEN_COLORS[vibe.id], textShadow: '3px 3px 0 #000' }}>
               {vibeCount}%
             </p>
           </div>
         )}
 
         {/* generation mix */}
-        <div className="pop-in mt-8 rounded-3xl border-4 border-black bg-[#241259] p-5 hard" style={{ animationDelay: '.15s' }}>
-          <h3 className="mb-4 font-display text-base font-extrabold tracking-wide">Your Generation Mix 🧪</h3>
+        <div className="pop-in mt-4 rounded-3xl border-4 border-black bg-[#241259] p-4 hard" style={{ animationDelay: '.15s' }}>
+          <h3 className="mb-3 font-display text-sm font-extrabold tracking-wide">Your Generation Mix 🧪</h3>
           {breakdown.map((b, i) => {
             const gen = GENERATIONS.find(g => g.id === b.gen)!
             return <GenBar key={b.gen} gen={gen} pct={b.pct} start={revealed} delay={300 + i * 180} />
@@ -232,14 +254,14 @@ export default function Result({ birthYear, official, vibe, breakdown, message, 
         </div>
 
         {/* funny message */}
-        <p className="pop-in mt-5 rotate-[-0.5deg] rounded-2xl border-2 border-black bg-[var(--peach)] px-4 py-3 text-center font-semibold text-black hard-sm" style={{ animationDelay: '.25s' }}>
+        <p className="pop-in mt-4 rotate-[-0.5deg] rounded-2xl border-2 border-black bg-[var(--peach)] px-4 py-2.5 text-center text-sm font-semibold text-black hard-sm" style={{ animationDelay: '.25s' }}>
           {message} 😂
         </p>
 
         {/* CTA to share screen */}
         <button
           onClick={() => { setStep('share'); window.scrollTo(0, 0) }}
-          className="push-btn pop-in mt-7 w-full rounded-2xl border-4 border-black bg-[#25D366] px-6 py-4 font-display text-lg font-extrabold text-black"
+          className="push-btn pop-in mt-4 w-full rounded-2xl border-4 border-black bg-[#25D366] px-6 py-4 font-display text-lg font-extrabold text-black"
           style={{ animationDelay: '.35s' }}
         >
           SHARE MY RESULT →
