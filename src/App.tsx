@@ -102,6 +102,8 @@ export default function App() {
           vibe={result.vibe}
           breakdown={result.breakdown as ScoreBreakdown[]}
           message={result.message}
+          questions={questions}
+          picks={picks}
           onPlayAgain={playAgain}
         />
       )}
