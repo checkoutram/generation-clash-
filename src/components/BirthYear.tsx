@@ -26,9 +26,11 @@ export default function BirthYear({ onSubmit }: { onSubmit: (year: number) => vo
     <div className="relative flex min-h-full flex-col items-center justify-center px-6">
       <FloatingBg density={7} />
       <div className="pop-in relative z-10 w-full max-w-sm text-center">
-        <div className="mb-4 text-5xl">🎂</div>
-        <h2 className="font-display text-3xl font-extrabold leading-tight" style={{ textShadow: '3px 3px 0 #000' }}>
-          First…<br />when were you born?
+        <div className="vhs mb-4 w-full rounded-md px-3 py-1.5 text-center text-[10px] font-bold">
+          <span className="rec-dot text-[#ff4444]">● REC</span> TELL THE TAPE YOUR BIRTH YEAR
+        </div>
+        <h2 className="font-display text-2xl leading-tight" style={{ textShadow: '3px 3px 0 #000' }}>
+          WHEN WERE YOU <span className="sunset-text">BORN?</span>
         </h2>
 
         <div className={`mt-8 ${shaking ? 'shake' : ''}`}>
@@ -42,19 +44,19 @@ export default function BirthYear({ onSubmit }: { onSubmit: (year: number) => vo
             autoFocus
             onChange={e => { setValue(e.target.value.slice(0, 4)); setError('') }}
             onKeyDown={e => e.key === 'Enter' && submit()}
-            className="w-full rounded-2xl border-4 border-black bg-white px-6 py-5 text-center font-display text-4xl font-extrabold tracking-[0.3em] text-[var(--ink)] placeholder:text-black/25 hard focus:outline-none"
+            className="bevel w-full rounded-xl bg-[var(--cream)] px-6 py-4 text-center font-display text-3xl tracking-[0.3em] text-[var(--ink)] placeholder:text-black/25 focus:outline-none"
           />
         </div>
         {error && <p className="mt-3 text-sm font-semibold text-[var(--peach)]">{error}</p>}
 
         <button
           onClick={submit}
-          className="push-btn mt-7 w-full rounded-2xl border-4 border-black bg-[var(--yellow)] px-6 py-4 font-display text-xl font-extrabold tracking-wide text-black"
+          className="bevel mt-6 w-full rounded-xl bg-[var(--lime)] px-6 py-4 font-display text-base tracking-wide text-black"
         >
           LET'S GO →
         </button>
 
-        <p className="mt-5 text-sm font-medium text-white/65">
+        <p className="mt-4 text-xs font-medium text-white/65">
           Your birth year determines your <span className="text-[var(--cyan)]">official generation</span>.
           <br />We won't reveal it until the end. 🤫
         </p>

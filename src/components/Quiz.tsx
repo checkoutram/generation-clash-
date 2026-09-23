@@ -73,12 +73,12 @@ export default function Quiz({
           className={`transition-all duration-250 ${leaving ? 'translate-x-[-24px] opacity-0' : 'translate-x-0 opacity-100'}`}
           style={{ transitionDuration: '250ms' }}
         >
-          <div className="pop-in mb-5 rotate-[-1deg] rounded-3xl border-4 border-black bg-[var(--purple)] p-6 hard">
+          <div className="pop-in mb-4 rotate-[-1deg] rounded-2xl border-4 border-black p-4 hard" style={{ background: 'linear-gradient(160deg, #2a1560, #3d1a86)' }}>
             <div className="mb-2 flex items-center gap-2">
-              <span className="text-2xl">{q.emoji}</span>
-              <span className="font-display text-xs font-extrabold tracking-[0.2em] text-[var(--lime)]">{q.category}</span>
+              <span className="text-xl">{q.emoji}</span>
+              <span className="font-display text-[10px] tracking-[0.2em] text-[var(--lime)]">{q.category}</span>
             </div>
-            <h2 className="font-display text-xl font-extrabold leading-snug text-white sm:text-2xl">
+            <h2 className="font-display text-lg leading-snug text-white">
               {q.question}
             </h2>
           </div>
@@ -92,14 +92,14 @@ export default function Quiz({
                   key={i}
                   disabled={selected !== null}
                   onClick={() => { setSelected(i); advance(i) }}
-                  className={`pop-in group flex w-full items-center gap-3 rounded-2xl border-4 border-black px-4 py-4 text-left transition-all duration-150 ${OPTION_COLORS[i]} ${
+                  className={`pop-in group flex w-full items-center gap-3 rounded-2xl border-4 border-black px-3.5 py-3 text-left ${OPTION_COLORS[i]} ${
                     isSel
-                      ? 'translate-x-0 translate-y-0 bg-[var(--lime)] shadow-none scale-[1.02]'
-                      : 'hard-sm hover:-translate-y-0.5 active:translate-x-[4px] active:translate-y-[5px] active:shadow-none'
+                      ? 'border-[3px] border-black bg-[var(--lime)] scale-[1.02] shadow-none'
+                      : 'bevel'
                   }`}
                   style={{ animationDelay: `${0.08 * i}s` }}
                 >
-                  <span className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full border-2 border-black font-display text-sm font-extrabold text-black ${isSel ? 'bg-black text-[var(--lime)]' : LETTER_BG[i]}`}>
+                  <span className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-full border-2 border-black font-display text-xs text-black ${isSel ? 'bg-black text-[var(--lime)]' : LETTER_BG[i]}`}>
                     {LETTERS[i]}
                   </span>
                   <span className="font-semibold leading-snug text-[var(--ink)]">{a.text}</span>

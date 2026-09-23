@@ -88,7 +88,7 @@ export default function App() {
   }
 
   return (
-    <div className="mx-auto min-h-full max-w-2xl">
+    <div className="mx-auto min-h-full max-w-2xl scanlines">
       {screen === 'landing' && <Landing onStart={() => setScreen('birthyear')} />}
       {screen === 'birthyear' && <BirthYear onSubmit={startQuiz} />}
       {screen === 'quiz' && (

@@ -87,33 +87,33 @@ export default function Result({ birthYear, official, vibe, breakdown, message, 
       <Confetti fire={revealed} />
       <div className="relative z-10 w-full max-w-md">
 
-        <p className="pop-in text-center font-display text-[10px] font-extrabold tracking-[0.3em] text-white/60">
-          YOUR GENERATION RESULT
+        <p className="pop-in vhs mx-auto w-fit rounded-md px-3 py-1 text-center text-[10px] font-bold">
+          ● YOUR GENERATION RESULT
         </p>
         <p className="pop-in text-center font-display text-sm font-bold text-white/85" style={{ animationDelay: '.05s' }}>
           Born in <span className="text-[var(--yellow)]">{birthYear}</span> • 🧬 {official.name}
         </p>
 
         {revealed && (
-          <div className="reveal-drama pop-in mt-1 rounded-2xl border-4 border-black bg-[#241259] p-2.5 text-center hard-sm" style={{ animationDelay: '.1s' }}>
-            <div className="text-3xl">{vibe.emoji}</div>
-            <p className="font-display text-[clamp(1.3rem,7vw,1.8rem)] font-extrabold leading-tight" style={{ textShadow: '3px 3px 0 #000' }}>
-              {vibe.name.toUpperCase()} IS YOUR VIBE — <span style={{ color: GEN_COLORS[vibe.id] }}>{vibeCount}%</span>
+          <div className="reveal-drama pop-in mt-2 rounded-xl border-4 border-black bg-[#241259] p-2 text-center hard-sm" style={{ animationDelay: '.1s' }}>
+            <div className="text-2xl">{vibe.emoji}</div>
+            <p className="font-display text-[clamp(.95rem,5.2vw,1.3rem)] leading-snug" style={{ textShadow: '3px 3px 0 #000' }}>
+              <span style={{ color: GEN_COLORS[vibe.id], textShadow: '2px 2px 0 #000' }}>{vibe.name.toUpperCase()}</span> <span style={{ color: '#fff', textShadow: '2px 2px 0 #000' }}>IS YOUR VIBE</span> — <span style={{ color: '#ffe23e', textShadow: '2px 2px 0 #000' }}>{vibeCount}%</span>
             </p>
-            <p className="mt-0.5 text-[10px] font-bold tracking-wide text-white/60">
+            <p className="mt-0.5 text-[9px] font-bold tracking-wide text-white/60">
               {breakdown.map(b => `${b.gen === 'genz' ? 'Gen Z' : b.gen === 'genalpha' ? 'Gen A' : b.gen === 'genbeta' ? 'Gen B' : 'Mill'} ${b.pct}%`).join(' • ')}
             </p>
           </div>
         )}
 
-        <p className="pop-in mt-2 rounded-2xl border-2 border-black bg-[var(--peach)] px-3 py-1.5 text-center text-xs font-semibold text-black hard-sm" style={{ animationDelay: '.2s' }}>
+        <p className="pop-in chrome mt-2 rounded-xl px-3 py-1.5 text-center text-xs font-bold" style={{ animationDelay: '.2s' }}>
           “{message}” 😂
         </p>
 
         {/* Q&A recap */}
         <div className="pop-in mt-3 rounded-2xl border-4 border-black bg-black/25 p-2.5" style={{ animationDelay: '.3s' }}>
-          <p className="mb-1.5 text-center font-display text-[9px] font-extrabold tracking-[0.25em] text-white/50">
-            MY QUESTIONS & ANSWERS
+          <p className="mb-1 text-center font-display text-[9px] tracking-[0.25em] text-[var(--lime)]">
+            ☆ MY QUESTIONS & ANSWERS ☆
           </p>
           {questions.map((q, i) => (
             <div key={q.id} className="flex items-start gap-1.5 border-b border-white/10 py-1 last:border-0">
@@ -135,31 +135,31 @@ export default function Result({ birthYear, official, vibe, breakdown, message, 
             target="_blank"
             rel="noopener noreferrer"
             onClick={() => trackShare('whatsapp')}
-            className="push-btn flex w-full items-center justify-center gap-2 rounded-2xl border-4 border-black bg-[#25D366] px-6 py-2.5 font-display text-base font-extrabold text-black"
+            className="bevel flex w-full items-center justify-center gap-2 rounded-xl bg-[#25D366] px-6 py-2.5 font-display text-sm text-black"
           >
             <WhatsAppIcon /> SHARE ON WHATSAPP
           </a>
           <div className="grid grid-cols-3 gap-2">
             <a href={fbHref} target="_blank" rel="noopener noreferrer" onClick={() => trackShare('facebook')}
-              className="push-btn flex items-center justify-center rounded-2xl border-4 border-black bg-[#1877F2] px-2 py-2 font-display text-[11px] font-extrabold text-white">
+              className="bevel flex items-center justify-center rounded-lg bg-[#1877F2] px-2 py-2 font-display text-[10px] text-white">
               FACEBOOK
             </a>
             <a href={liHref} target="_blank" rel="noopener noreferrer" onClick={() => trackShare('linkedin')}
-              className="push-btn flex items-center justify-center rounded-2xl border-4 border-black bg-[#0A66C2] px-2 py-2 font-display text-[11px] font-extrabold text-white">
+              className="bevel flex items-center justify-center rounded-lg bg-[#0A66C2] px-2 py-2 font-display text-[10px] text-white">
               LINKEDIN
             </a>
             <button onClick={() => shareNativeAll('more')}
-              className="push-btn flex items-center justify-center rounded-2xl border-4 border-black bg-[var(--pink)] px-2 py-2 font-display text-[11px] font-extrabold text-black">
+              className="bevel flex items-center justify-center rounded-lg bg-[var(--pink)] px-2 py-2 font-display text-[10px] text-black">
               MORE
             </button>
           </div>
           <div className="grid grid-cols-2 gap-2">
             <button onClick={copyLink}
-              className="push-btn rounded-2xl border-4 border-black bg-[var(--cyan)] px-2 py-2 font-display text-[11px] font-extrabold text-black">
+              className="bevel rounded-lg bg-[var(--cyan)] px-2 py-2 font-display text-[10px] text-black">
               {copied ? '✅ COPIED!' : '🔗 COPY LINK'}
             </button>
             <button onClick={onPlayAgain}
-              className="push-btn rounded-2xl border-4 border-black bg-white px-2 py-2 font-display text-[11px] font-extrabold text-black">
+              className="bevel rounded-lg bg-[var(--cream)] px-2 py-2 font-display text-[10px] text-black">
               🔁 PLAY AGAIN
             </button>
           </div>
