@@ -101,7 +101,7 @@ export default function Result({ birthYear, official, vibe, breakdown, message, 
               <span style={{ color: GEN_COLORS[vibe.id], textShadow: '2px 2px 0 #000' }}>{vibe.name.toUpperCase()}</span> <span style={{ color: '#fff', textShadow: '2px 2px 0 #000' }}>IS YOUR VIBE</span> — <span style={{ color: '#ffe23e', textShadow: '2px 2px 0 #000' }}>{vibeCount}%</span>
             </p>
             <p className="mt-0.5 text-[9px] font-bold tracking-wide text-white/60">
-              {breakdown.map(b => `${b.gen === 'genz' ? 'Gen Z' : b.gen === 'genalpha' ? 'Gen A' : b.gen === 'genbeta' ? 'Gen B' : 'Mill'} ${b.pct}%`).join(' • ')}
+              {breakdown.map(b => `${b.gen === 'genz' ? '2K' : b.gen === 'genalpha' ? 'Gen A' : b.gen === 'genbeta' ? 'Gen B' : '90s'} ${b.pct}%`).join(' • ')}
             </p>
           </div>
         )}

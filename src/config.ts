@@ -18,8 +18,8 @@ export interface Generation {
 }
 
 export const GENERATIONS: Generation[] = [
-  { id: 'millennial', name: 'Millennial', emoji: '📼', from: 1981, to: 1996, vibe: 'Retro soul. Remembers dial-up tones.' },
-  { id: 'genz',       name: 'Gen Z',      emoji: '📱', from: 1997, to: 2012, vibe: 'Digital native. Fluent in reels.' },
+  { id: 'millennial', name: '90s Kids', emoji: '📼', from: 1981, to: 1996, vibe: 'Retro soul. Remembers dial-up tones.' },
+  { id: 'genz',       name: '2K Kids',     emoji: '📱', from: 1997, to: 2012, vibe: 'Digital native. Fluent in reels.' },
   { id: 'genalpha',   name: 'Gen Alpha',  emoji: '🤖', from: 2013, to: 2024, vibe: 'Never knew a world without Wi-Fi.' },
   { id: 'genbeta',    name: 'Gen Beta',   emoji: '🚀', from: 2025, to: 9999, vibe: 'Future generation. Literally.' },
 ]
@@ -302,13 +302,13 @@ export const QUESTION_POOL: Question[] = [
 export const RESULT_MESSAGES: Record<string, string[]> = {
   'millennial:genz': [
     'You survived the cassette era but adapted suspiciously well to WhatsApp.',
-    'Millennial by birth. Gen Z by vibe. The algorithm claims you.',
+    '90s kid by birth. 2K kid by vibe. The algorithm claims you.',
     'Orkut raised you, but Reels own you now.',
   ],
   'genz:millennial': [
-    'Born Gen Z. Mentally stuck somewhere between Orkut and Instagram.',
+    'Born 2K kid. Mentally stuck somewhere between Orkut and Instagram.',
     'You have the birth year of a digital native and the soul of a landline.',
-    'Old-school energy detected in a Gen Z body. Respect.',
+    'Old-school energy detected in a 2K kid body. Respect.',
   ],
   'genalpha:*': [
     'You don’t remember a world without Wi-Fi.',
@@ -321,19 +321,19 @@ export const RESULT_MESSAGES: Record<string, string[]> = {
   ],
   'millennial:millennial': [
     'You remember when buffering had a personality.',
-    'Certified Millennial. You know what a landline is. Respect.',
+    'Certified 90s kid. You know what a landline is. Respect.',
     'Retro soul, fully intact. The tape recorder approves.',
   ],
   'genz:genz': [
     'Peak digital native. You think in 15-second videos.',
-    'Gen Z through and through. Main character energy. 📱',
+    '2K kid through and through. Main character energy. 📱',
   ],
   'millennial:genalpha': [
     'You grew up rewinding cassettes with a pencil… and now you vibe like Wi-Fi was always there.',
-    'A Millennial with Gen Alpha reflexes. The kids have influenced you.',
+    'A 90s kid with Gen Alpha reflexes. The kids have influenced you.',
   ],
   'genz:genalpha': [
-    'Gen Z outside, Gen Alpha inside. The future is rubbing off on you.',
+    '2K kid outside, Gen Alpha inside. The future is rubbing off on you.',
     'Somewhere between reels and robots. Very 2020s of you.',
   ],
   '*:*': [
