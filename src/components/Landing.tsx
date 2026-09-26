@@ -19,15 +19,16 @@ export default function Landing({ onStart }: { onStart: () => void }) {
         <div className="checker-sm w-full max-w-sm rounded-lg border-4 border-black p-2 hard" style={{ padding: 8 }}>
           <div className="rounded-md border-2 border-black bg-[var(--ground)] px-3 py-5">
             <h1 className="font-display leading-[1.02] tracking-normal">
-              <span className="sunset-text block text-[clamp(2.6rem,13vw,4.5rem)]">GENERATION</span>
-              <span className="sunset-text block text-[clamp(2.6rem,13vw,4.5rem)]">CLASH</span>
+              <span className="sunset-text block text-[clamp(2.2rem,11vw,3.6rem)]">90s KIDS</span>
+              <span className="mt-1 block text-[clamp(1rem,5vw,1.6rem)] text-[var(--cyan)]" style={{ textShadow: '2px 2px 0 #000' }}>⚡ VS ⚡</span>
+              <span className="sunset-text block text-[clamp(2.2rem,11vw,3.6rem)]">2K KIDS</span>
             </h1>
             <div className="mt-3 flex items-center justify-center gap-1">
               <span className="zigzag w-10" />
-              <p className="px-1 text-xs font-bold text-[var(--lime)]">★ BORN IN ONE GENERATION ★</p>
+              <p className="px-1 text-xs font-bold text-[var(--lime)]">★ THE CLASH IS ON ★</p>
               <span className="zigzag w-10" />
             </div>
-            <p className="mt-1 text-xs font-bold text-[var(--cyan)]">LIVING LIKE ANOTHER…</p>
+            <p className="mt-1 text-xs font-bold text-[var(--cyan)]">BORN IN ONE GENERATION… LIVING LIKE ANOTHER</p>
           </div>
         </div>
 
@@ -36,7 +37,7 @@ export default function Landing({ onStart }: { onStart: () => void }) {
           <div className="relative rounded-xl border-4 border-black bg-[#3b2a63] p-3 hard">
             <div className="checker-sm h-2 rounded-full border-2 border-black" />
             <div className="mx-auto mt-2 w-4/5 rounded-md border-2 border-black bg-[var(--cream)] px-2 py-1.5">
-              <p className="font-display text-[9px] font-bold text-black" style={{ fontSize: 9 }}>♪ A SIDE — RETRO MIX 90s INDIA ♪</p>
+              <p className="font-display text-[9px] font-bold text-black" style={{ fontSize: 9 }}>♪ 90s vs 2K — RETRO MIX INDIA ♪</p>
               <div className="mx-auto mt-1 flex w-2/3 items-center justify-between rounded-full border-2 border-black bg-[#2b2b2b] px-3 py-0.5">
                 <span className="h-2.5 w-2.5 rounded-full bg-[#eee]" />
                 <span className="text-[8px] font-bold text-[#ffe23e]">TAPE</span>

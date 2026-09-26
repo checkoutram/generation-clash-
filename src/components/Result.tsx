@@ -55,7 +55,7 @@ export default function Result({ birthYear, official, vibe, breakdown, message, 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  const shareText = `😂 I just took the Generation Clash India quiz!\n\nI'm a ${official.name} by birth but my Generation Vibe is ${vibe.name} (${vibePct}% ${vibe.name})!\n\n${message}\n\nWhat's YOUR Generation Vibe?\n👉 Take the 10-question challenge: ${url}`
+  const shareText = `😂 I just took the 90s Kids vs 2K Kids Clash quiz!\n\nI'm a ${official.name} by birth but my Generation Vibe is ${vibe.name} (${vibePct}% ${vibe.name})!\n\n${message}\n\nWhat's YOUR Generation Vibe?\n👉 Take the 10-question challenge: ${url}`
   const waHref = `https://wa.me/?text=${encodeURIComponent(shareText)}`
   const fbHref = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}&quote=${encodeURIComponent(shareText)}`
   const liHref = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`
@@ -66,7 +66,7 @@ export default function Result({ birthYear, official, vibe, breakdown, message, 
   const shareNativeAll = async (platform: string) => {
     trackShare(platform)
     if (navigator.share) {
-      try { await navigator.share({ title: 'Generation Clash India', text: shareText }) } catch { /* cancelled */ }
+      try { await navigator.share({ title: '90s Kids vs 2K Kids Clash', text: shareText }) } catch { /* cancelled */ }
     } else {
       await copyLink()
     }
